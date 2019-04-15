@@ -90,6 +90,6 @@ INCREMENT BY 1
 MINVALUE 1
 MAXVALUE 1000
 CACHE 100;
-
-
-
+CREATE SEQUENCE sequence_autoincrement_org;
+CREATE SEQUENCE sequence_autoincrement_doc;
+CREATE SEQUENCE sequence_autoincrement_country;

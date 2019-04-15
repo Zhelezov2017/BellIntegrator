@@ -1,8 +1,8 @@
 INSERT INTO organization (id, name, full_name, inn, kpp, address, phone, is_active, version)
-        VALUES (1, 'BellInt', 'BellIntegrator', '54325234', '231433', 'ул. Иванова 7', '2233424',1, 0);
+        VALUES (sequence_autoincrement_org.nextval, 'BellInt', 'BellIntegrator', '54325234', '231433', 'ул. Иванова 7', '2233424',1, 0);
 
 INSERT INTO organization (id, name, full_name, inn, kpp, address, phone, is_active, version)
-        VALUES (2, 'Google', 'GG', '84143234', '251221', 'ул. Прыгунова 47', '2235124',1, 0);
+        VALUES (sequence_autoincrement_org.nextval, 'Google', 'GG', '84143234', '251221', 'ул. Прыгунова 47', '2235124',1, 0);
 
 
 INSERT INTO office (id, name, address, phone, is_active, org_id, version)
@@ -16,23 +16,23 @@ INSERT INTO office (id, name, address, phone, is_active, org_id, version)
 
 
 INSERT INTO country (id, name, code, version)
-        VALUES (1, 'Российская Федерация' , '5745', 0) ;
+        VALUES (sequence_autoincrement_country.nextval, 'Российская Федерация' , '5745', 0) ;
 
 INSERT INTO country (id, name, code, version)
-        VALUES (2, 'Соединённые Шта́ты Аме́рики' , '6745', 0) ;
+        VALUES (sequence_autoincrement_country.nextval, 'Соединённые Шта́ты Аме́рики' , '6745', 0) ;
 
 
 INSERT INTO doc (id, name, doc_number, doc_date, code, country_id, version)
-        VALUES ( 1, 'Паспорт гражданина РФ', '1', '2014-3-24', '1453', 1, 0);
+        VALUES (sequence_autoincrement_doc.nextval, 'Паспорт гражданина РФ', '1', '2014-3-24', '1453', 1, 0);
 
 INSERT INTO doc (id, name, doc_number, doc_date, code, country_id,  version)
-        VALUES ( 2, 'Военный билет', '1', '2015-2-24', '5432', 1, 0);
+        VALUES (sequence_autoincrement_doc.nextval, 'Военный билет', '1', '2015-2-24', '5432', 1, 0);
 
 INSERT INTO doc (id, name, doc_number, doc_date, code, country_id,  version)
-        VALUES ( 3, 'Паспорт гражданина РФ', '1', '2013-8-21', '1453', 2, 0);
+        VALUES (sequence_autoincrement_doc.nextval, 'Паспорт гражданина РФ', '1', '2013-8-21', '1453', 2, 0);
 
 INSERT INTO doc (id, name, doc_number, doc_date, code, country_id, version)
-        VALUES ( 4, 'Военный билет', '1', '2016-8-14', '5432', 2, 0);
+        VALUES (sequence_autoincrement_doc.nextval, 'Военный билет', '1', '2016-8-14', '5432', 2, 0);
 
 
 INSERT INTO user (id, first_name, second_name, middle_name, position, phone, citizen_ship_name, citizen_ship_code, is_identified, doc_id, version)
