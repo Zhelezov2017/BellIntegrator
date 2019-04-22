@@ -1,34 +1,50 @@
-package ru.mithril.demo.dao.entity;
+package ru.mithril.demo.model;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
+import org.springframework.lang.Nullable;
+
+import javax.persistence.*;
+import java.util.List;
 
 
 @Data
 @AllArgsConstructor
 @Builder
+@Table(name = "organization")
 public class Organization {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Integer version;
+
+    @Nullable
     private String name;
 
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    private Integer inn;
+    @Nullable
+    private String inn;
 
-    private Integer kpp;
+    @Nullable
+    private String kpp;
 
+    @Nullable
     private String address;
 
-    private Long phone;
+    private String phone;
 
-    private Boolean isActive;
+    @Column(name = "is_active")
+    private String isActive;
 
-    private Long version;
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "orgId")
+    private List<Office> offices;
 }

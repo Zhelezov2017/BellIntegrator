@@ -1,37 +1,10 @@
-package ru.mithril.demo.service.serviceInterface;
+package ru.mithril.demo.dao.daoInterface;
 
-import ru.mithril.demo.dao.daoInterface.CrudDAO;
-
-import java.util.List;
-import java.util.Optional;
-
-
-public class OrganizationDaoJdbcTemplateImpl implements CrudDAO {
+public class OrganizationDaoJdbcTemplateImpl  {
 
 
 
-    @Override
-    public Optional find(Long id) {
-        return Optional.empty();
-    }
 
-    @Override
-    public void save(Object model) {
 
-    }
 
-    @Override
-    public void update(Object model) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
-    public List findAll() {
-        return null;
-    }
 }
