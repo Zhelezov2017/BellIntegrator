@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data
@@ -41,15 +40,6 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @Column(name = "doc_name", nullable = false)
-    private String docName;
-
-    @Column(name = "doc_number", nullable = false)
-    private String docNumber;
-
-    @Column(name = "doc_date", nullable = false)
-    private Date docDate;
-
     @Column(name = "citizen_ship_name")
     private String citizenShipName;
 
@@ -59,8 +49,8 @@ public class User {
     @Column(name = "is_identified")
     private String isIdentified;
 
-    @Column(name = "office_id")
-    private Long officeId;
+    @Column(name = "doc_id")
+    private Long docId;
 
 
     public User(String firstName, String middleName){

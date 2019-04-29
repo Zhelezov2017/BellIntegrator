@@ -43,7 +43,4 @@ public class Office {
     @JoinColumn(name = "office_id")
     private List<User> users;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private Office office;
 }

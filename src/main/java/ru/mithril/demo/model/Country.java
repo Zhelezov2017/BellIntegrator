@@ -6,17 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 
-
+@Entity
 @Data
 @AllArgsConstructor
 @Builder
 @Table(name = "country")
 public class Country {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Version
     private Integer version;
@@ -27,7 +28,5 @@ public class Country {
     @Nullable
     private String code;
 
-    @Column(name = "owner_id")
-    private Long ownerId;
 
 }
