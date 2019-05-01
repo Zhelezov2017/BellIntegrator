@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -25,31 +24,31 @@ public class User {
     @Version
     private Integer version;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name",length = 50, nullable = false)
     private String firstName;
 
-    @Column(name = "second_name", nullable = false)
+    @Column(name = "second_name",length = 50, nullable = false)
     private String secondName;
 
-    @Column(name = "middle_name", nullable = false)
+    @Column(name = "middle_name",length = 50, nullable = false)
     private String middleName;
 
-    @Nullable
+    @Column(name = "position",length = 50, nullable = false)
     private String position;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", length = 50, nullable = false)
     private String phone;
 
-    @Column(name = "citizen_ship_name")
+    @Column(name = "citizen_ship_name", length = 50)
     private String citizenShipName;
 
-    @Column(name = "citizen_ship_code")
+    @Column(name = "citizen_ship_code", length = 50)
     private String citizenShipCode;
 
-    @Column(name = "is_identified")
+    @Column(name = "is_identified", length = 50, nullable = false)
     private String isIdentified;
 
-    @Column(name = "doc_id")
+    @Column(name = "doc_id", nullable = false)
     private Long docId;
 
 

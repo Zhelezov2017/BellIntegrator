@@ -20,14 +20,15 @@ public class UserOffice {
     private Long id;
 
     @Version
+    @Column(name = "version", nullable = false)
     private Integer version;
 
     @Nullable
-    @Column(name = "office_id")
+    @Column(name = "office_id", length = 50, nullable = false)
     private Long officeId;
 
     @Nullable
-    @Column(name = "user_id")
+    @Column(name = "user_id", length = 50, nullable = false)
     private Long userId;
 
 

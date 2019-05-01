@@ -20,12 +20,15 @@ public class Country {
     private Long id;
 
     @Version
+    @Column(name = "version", nullable = false)
     private Integer version;
 
     @Nullable
+    @Column(name = "name",length = 50, nullable = false)
     private String name;
 
     @Nullable
+    @Column(name = "code",length = 643, nullable = false)
     private String code;
 
 

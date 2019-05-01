@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,24 +22,26 @@ public class Organization {
     @Version
     private Integer version;
 
-    @Nullable
+    @Column(name = "name",length = 50, nullable = false)
     private String name;
 
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name",length = 50, nullable = false)
     private String fullName;
 
-    @Nullable
+
+    @Column(name = "inn",length = 50, nullable = false)
     private String inn;
 
-    @Nullable
+    @Column(name = "kpp",length = 50, nullable = false)
     private String kpp;
 
-    @Nullable
+    @Column(name = "address",length = 50, nullable = false)
     private String address;
 
+    @Column(name = "phone",length = 50)
     private String phone;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private String isActive;
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)

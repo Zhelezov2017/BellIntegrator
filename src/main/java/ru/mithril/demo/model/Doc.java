@@ -21,21 +21,24 @@ public class Doc{
     private Long id;
 
     @Version
+    @Column(name = "version", nullable = false)
     private Integer version;
 
     @Nullable
+    @Column(name = "name",length = 50, nullable = false)
     private String name;
 
-    @Column(name = "doc_number", nullable = false)
+    @Column(name = "doc_number", length = 50, nullable = false)
     private String docNumber;
 
     @Column(name = "doc_date", nullable = false)
     private Date docDate;
 
     @Nullable
+    @Column(name = "code",length = 50, nullable = false)
     private String code;
 
-    @Column(name = "country_id")
+    @Column(name = "country_id", nullable = false)
     private Long countryId;
 
     //@ManyToOne
