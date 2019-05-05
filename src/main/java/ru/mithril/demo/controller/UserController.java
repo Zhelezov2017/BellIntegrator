@@ -5,12 +5,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.mithril.demo.model.user.service.User;
+import ru.exception.com.springboot.CustomErrorType;
+import ru.mithril.demo.model.User;
 import ru.mithril.demo.service.serviceInterface.UserService;
+import ru.mithril.demo.view.UserView;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -26,7 +32,7 @@ public class UserController {
 
     @Autowired
     private final UserService userService;
-
+    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @RequestMapping("/")
     @ResponseBody
     public String welcome(){
@@ -43,45 +49,54 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success", response = String.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @PostMapping("/userAdd")
-    public void setUser(@RequestBody @Valid User user) {
+    @PostMapping("/save")
+    public ResponseEntity<?> setUser(@RequestBody @Valid UserView user) {
+        logger.info("Creating User : {}", user);
+
+        if (userService.isUserExist(user)) {
+            logger.error("Unable to create. A User with name {} already exist", user.getFirstName());
+            return new ResponseEntity(new CustomErrorType("Unable to create. A User with name " +
+                    user.getFirstName() + " already exist."),HttpStatus.CONFLICT);
+        }
         userService.add(user);
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+
     }
 
     @ApiOperation(value = "Получить список всех людей", httpMethod = "GET")
-    @GetMapping("/userGetAll")
-    public ResponseEntity<List<User>> getUsers() {
-        List<User> users = userService.users();
-        return ResponseEntity.ok().body(users);
+    @GetMapping("/list")
+    public List<UserView> getUsers() {
+        List<UserView> users = userService.users();
+        return users;
     }
 
     @ApiOperation(value = "Получить человека по id", httpMethod = "GET")
     @GetMapping("/{userID}")
-    public ResponseEntity<User> getUser(@PathVariable("userID") Long id) throws EntityNotFoundException {
+    public Optional<User> getUser(@PathVariable("userID") Long id) throws EntityNotFoundException {
+        userService.find(id);
         Optional<User> user = userService.find(id);
-        if (!user.isPresent())
-            throw new EntityNotFoundException("id-" + id);
-        return ResponseEntity.ok().body(user.get());
+        return user;
     }
 
 
-    @PutMapping(value = "{userID}")
-    public void updateUser(@RequestBody @Valid User user,
-                                               @PathVariable("userID") Long id) throws EntityNotFoundException {
-        Optional<User> us = userService.find(id);
-        if (!us.isPresent())
-            throw new EntityNotFoundException("id-" + id);
+    @PutMapping(value = "/update",
+    consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+    produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+    public ResponseEntity<Object> updateUser(@RequestBody @Valid UserView user) throws EntityNotFoundException {
         userService.update(user);
+        return ResponseEntity.ok().body(user);
     }
 
-    @DeleteMapping(value = "/{usId}")
-    public void deleteUser(@PathVariable("usId") Long id)
-            throws EntityNotFoundException {
-        Optional<User> p = userService.find(id);
-        if (!p.isPresent())
-            throw new EntityNotFoundException("id-" + id);
-        userService.delete(id);
-    }
+//    @DeleteMapping(value = "/{userId}")
+//    public ResponseEntity<Object> deleteUser(@PathVariable("userId") Long id)
+//            throws EntityNotFoundException {
+//        userService.delete(id);
+//        return ResponseEntity.ok().build();
+//    }
+
+
 
 
 }

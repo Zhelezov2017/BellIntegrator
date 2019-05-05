@@ -2,18 +2,16 @@ package ru.mithril.demo.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ExceptionHandler extends ResponseEntityExceptionHandler {
+public class ExceptionHandlerOne extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ThereIsNoSuchUserException.class)
-    protected ResponseEntity<AwesomeException> handleThereIsNoSuchUserException() {
-        return new ResponseEntity<>(new AwesomeException("There is no such user"), HttpStatus.NOT_FOUND);
-    }
+    //@ExceptionHandler(ThereIsNoSuchUserException.class)
+    //protected ResponseEntity<AwesomeException> handleThereIsNoSuchUserException() {
+     //   return new ResponseEntity<>(new AwesomeException(), HttpStatus.NOT_FOUND);
+    //}
 
     @Data
     @AllArgsConstructor
