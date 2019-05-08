@@ -1,19 +1,14 @@
 package ru.mithril.demo.model;
 
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Data
 @Table(name = "user")
 public class User {
 
@@ -24,19 +19,19 @@ public class User {
     @Version
     private Integer version;
 
-    @Column(name = "first_name",length = 50, nullable = false)
+    @Column(name = "first_name",length = 50)
     private String firstName;
 
-    @Column(name = "second_name",length = 50, nullable = false)
+    @Column(name = "second_name",length = 50)
     private String secondName;
 
-    @Column(name = "middle_name",length = 50, nullable = false)
+    @Column(name = "middle_name",length = 50)
     private String middleName;
 
-    @Column(name = "position",length = 50, nullable = false)
+    @Column(name = "position",length = 50)
     private String position;
 
-    @Column(name = "phone", length = 50, nullable = false)
+    @Column(name = "phone", length = 50)
     private String phone;
 
     @Column(name = "citizen_ship_name", length = 50)
@@ -45,28 +40,23 @@ public class User {
     @Column(name = "citizen_ship_code", length = 50)
     private String citizenShipCode;
 
-    @Column(name = "is_identified", length = 50, nullable = false)
-    private String isIdentified;
+    @Column(name = "is_identified")
+    private Boolean isIdentified;
 
-    @Column(name = "doc_id", nullable = false)
+    @Column(name = "doc_id")
     private Long docId;
 
-
-    public User(String firstName, String middleName){
+    public User(Long id, String firstName, String secondName, String middleName, String position) {
+        this.id = id;
         this.firstName = firstName;
+        this.secondName = secondName;
         this.middleName = middleName;
+        this.position = position;
     }
 
-
-//    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-//    @JoinColumn(name = "owner_id")
-//    private List<Country> countries;
-//
-//    @ManyToOne
-//    @JoinColumn
-//    private Office office;
-
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    Doc doc;
 
 
 

@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -40,8 +39,8 @@ public class Office {
     @Column(name = "orgId")
     private Long orgId;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "office_id")
-    private List<User> users;
+    //@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    //@JoinColumn(name = "office_id")
+    //private List<User> users;
 
 }

@@ -1,18 +1,15 @@
 package ru.mithril.demo.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Table(name = "doc")
 public class Doc{
 
@@ -32,7 +29,7 @@ public class Doc{
     private String docNumber;
 
     @Column(name = "doc_date", nullable = false)
-    private Date docDate;
+    private String docDate;
 
     @Nullable
     @Column(name = "code",length = 50, nullable = false)
@@ -41,8 +38,11 @@ public class Doc{
     @Column(name = "country_id", nullable = false)
     private Long countryId;
 
-    //@ManyToOne
-    //@JoinColumn
-    //private List<User> users;
+
+    public Doc(String name, String docNumber, String docDate){
+        this.name = name;
+        this.docNumber = docNumber;
+        this.docDate = docDate;
+    }
 
 }
