@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.mithril.demo.dao.daoInterface.OfficeDaoJdbcTemplateImpl;
+import ru.mithril.demo.dao.implementation.OfficeDaoJdbcTemplateImpl;
 import ru.mithril.demo.model.user.service.Office;
 @RunWith(SpringRunner.class)
 public class OfficeControllerTest {
