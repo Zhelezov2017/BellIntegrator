@@ -42,8 +42,8 @@ public class UserControllerMockTest {
 
     @Test
     public void getUsers() {
-        when(userService.users()).thenReturn(null);
-        assertEquals(json.toJson(userController.getUsers()), json.toJson(userController.getUsers()));
+        when(userService.users(user)).thenReturn(null);
+        assertEquals(json.toJson(userController.getUsers(user)), json.toJson(userController.getUsers(user)));
     }
 
     @Test

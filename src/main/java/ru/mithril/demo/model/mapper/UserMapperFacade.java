@@ -2,12 +2,14 @@ package ru.mithril.demo.model.mapper;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
+import org.springframework.stereotype.Service;
 import ru.mithril.demo.model.User;
 import ru.mithril.demo.view.UserView;
 
 import java.util.Collection;
 import java.util.List;
 
+@Service
 public class UserMapperFacade implements MapperFacadeInterface<User,UserView> {
 
     private final MapperFacade mapperFacade;
