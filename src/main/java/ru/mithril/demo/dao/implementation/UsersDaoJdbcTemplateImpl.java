@@ -1,50 +1,76 @@
-package ru.mithril.demo.dao.daoInterface;
+package ru.mithril.demo.dao.implementation;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.mithril.demo.model.user.service.User;
-import ru.mithril.demo.service.serviceInterface.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import ru.mithril.demo.dao.daoInterface.UserDao;
+import ru.mithril.demo.model.User;
 
-import java.util.*;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
+import java.util.List;
+
+
+
+/**
+ * {@inheritDoc}
+ */
+@Repository
 @Data
-@AllArgsConstructor
-public class UsersDaoJdbcTemplateImpl implements UserService {
+public class UsersDaoJdbcTemplateImpl implements UserDao {
 
 
 
-    private static final Map<Long, User> users = new HashMap<>();
+    private final EntityManager em;
 
-
-    @Override
-    public List<User> users(){
-        Collection<User> col = users.values();
-        List<User> list = new ArrayList<>();
-        list.addAll(col);
-        return list;
+    @Autowired
+    public UsersDaoJdbcTemplateImpl(EntityManager em) {
+        this.em = em;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<User> find(Long id) {
-        return Optional.of(users.get(id));
+    public List<User> users(User user){
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+        return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<User> add(User user) {
-        users.put(user.getId(), user);
-        return Optional.of(user);
+    public User find(Long id) {
+        return em.find(User.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<User> update(User user) {
-        users.put(user.getId(), user);
-        return Optional.of(user);
+    public void add(User user) {
+        em.persist(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(User user) {
+        em.persist(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Long id) {
-        users.remove(id);
+        em.remove(id);
     }
+
+
 
 
 }

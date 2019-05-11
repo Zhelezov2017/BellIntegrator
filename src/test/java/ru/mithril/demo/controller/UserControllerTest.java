@@ -37,7 +37,10 @@ public class UserControllerTest {
 
     @Test
     public void welcome() {
-
+        HttpEntity<UserView> userViewHttpEntity = new HttpEntity<>(header);
+        ResponseEntity<String> response = testRestTemplate.exchange("/", HttpMethod.GET, userViewHttpEntity, String.class);
+        String location = response.getHeaders().get(HttpHeaders.LOCATION).get(0);
+        assertTrue(location.contains("/"));
     }
 
     @Test

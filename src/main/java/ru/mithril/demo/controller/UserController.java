@@ -12,16 +12,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.exception.com.springboot.CustomErrorType;
-import ru.mithril.demo.model.User;
 import ru.mithril.demo.service.serviceInterface.UserService;
 import ru.mithril.demo.view.UserView;
+import ru.mithril.demo.view.operations.user.OperationListUser;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -67,16 +67,15 @@ public class UserController {
 
     @ApiOperation(value = "Получить список всех людей", httpMethod = "GET")
     @GetMapping("/list")
-    public List<UserView> getUsers() {
-        List<UserView> users = userService.users();
-        return users;
+    public List<UserView> getUsers(@Validated(OperationListUser.class) @RequestBody UserView userView) {
+        return userService.users(userView);
     }
 
     @ApiOperation(value = "Получить человека по id", httpMethod = "GET")
     @GetMapping("/{userID}")
-    public Optional<User> getUser(@PathVariable("userID") Long id) throws EntityNotFoundException {
+    public UserView getUser(@PathVariable("userID") Long id) throws EntityNotFoundException {
         userService.find(id);
-        Optional<User> user = userService.find(id);
+        UserView user = userService.find(id);
         return user;
     }
 
