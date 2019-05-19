@@ -10,7 +10,7 @@ import java.util.List;
  * Сервис документов
  */
 @Validated
-public interface DocService {
+public interface DocumentService {
 
-    List<Doc> docs();
+    List<Doc> doc();
 }

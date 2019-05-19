@@ -6,11 +6,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.mithril.demo.view.operations.user.OperationListUser;
+import ru.mithril.demo.view.operations.user.ListUser;
 import ru.mithril.demo.view.operations.user.SaveUser;
 import ru.mithril.demo.view.operations.user.UpdateUser;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,13 +19,11 @@ import javax.validation.constraints.Size;
 public class UserView {
 
     @NotNull(groups = UpdateUser.class)
-    @NotEmpty
     @ApiModelProperty(value = "Уникальный идентификатор", hidden = true)
     public Long id;
 
     @NotNull(groups = {UpdateUser.class, SaveUser.class})
     @Size(max = 50)
-    @NotEmpty(message = "name cannot be null")
     @ApiModelProperty(value = "Имя")
     public String firstName;
 
@@ -43,7 +40,7 @@ public class UserView {
     @ApiModelProperty(value = "Должность")
     public String position;
 
-    @NotNull(groups = {OperationListUser.class, SaveUser.class})
+    @NotNull(groups = {ListUser.class, SaveUser.class})
     @ApiModelProperty(value = "Офис")
     public Integer officeId;
 

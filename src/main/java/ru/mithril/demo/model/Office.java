@@ -22,10 +22,8 @@ public class Office {
     @Column(name = "version", nullable = false)
     private Integer version;
 
-
     @Column(name = "name",length = 50, nullable = false)
     private String name;
-
 
     @Column(name = "address",length = 50, nullable = false)
     private String address;

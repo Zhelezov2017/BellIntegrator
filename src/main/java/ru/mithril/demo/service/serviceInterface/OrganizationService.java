@@ -1,10 +1,9 @@
 package ru.mithril.demo.service.serviceInterface;
 
 import org.springframework.validation.annotation.Validated;
-import ru.mithril.demo.model.Organization;
+import ru.mithril.demo.view.OrganizationView;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Сервис организациии
@@ -12,12 +11,41 @@ import java.util.Optional;
 @Validated
 public interface OrganizationService {
 
-    List<Organization> organizations();
+    /**
+     * Получить список организаций
+     *
+     * @return {@Organization}
+     */
+    List<OrganizationView> organizations(OrganizationView organization);
 
-    Optional<Organization> find(Long id);
-    Optional<Organization> add(Organization organization);
-    Optional<Organization> update(Organization organization);
+    /**
+     * Есть ли организация в БД
+     *
+     */
+    boolean isOfficeExist(OrganizationView organization);
 
+    /**
+     * Найти организацию в БД и вернуть ее данные
+     * @return {@User}
+     */
+    OrganizationView find(Long id);
+
+    /**
+     * Добавить организацию в БД
+     *
+     */
+    void add(OrganizationView organization);
+
+    /**
+     * Обновить организацию в БД
+     *
+     */
+    void update(OrganizationView organization);
+
+    /**
+     * Удалить организацию из БД
+     *
+     */
     void delete(Long id);
 
 }

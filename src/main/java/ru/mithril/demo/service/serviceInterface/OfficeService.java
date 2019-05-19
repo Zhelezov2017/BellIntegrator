@@ -1,19 +1,47 @@
 package ru.mithril.demo.service.serviceInterface;
 
 import org.springframework.validation.annotation.Validated;
-import ru.mithril.demo.model.user.service.Office;
+import ru.mithril.demo.view.OfficeView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Validated
 public interface OfficeService  {
 
-    List<Office> offices();
+    /**
+     * Получить список офисов
+     *
+     * @return {@Office}
+     */
+    List<OfficeView> offices(OfficeView office);
 
-    Optional<Office> find(Long id);
-    Optional<Office> add(Office office);
-    Optional<Office> update(Office office);
+    /**
+     * Есть ли офис в БД
+     *
+     */
+    boolean isOfficeExist(OfficeView office);
 
+    /**
+     * Найти офис в БД и вернуть его данные
+     * @return {@User}
+     */
+    OfficeView find(Long id);
+
+    /**
+     * Добавить офис в БД
+     *
+     */
+    void add(OfficeView office);
+
+    /**
+     * Обновить офис в БД
+     *
+     */
+    void update(OfficeView office);
+
+    /**
+     * Удалить офис из БД
+     *
+     */
     void delete(Long id);
 }

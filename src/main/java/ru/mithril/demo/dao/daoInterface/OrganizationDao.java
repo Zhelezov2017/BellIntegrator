@@ -1,4 +1,10 @@
 package ru.mithril.demo.dao.daoInterface;
 
-public class OrganizationDao {
+import ru.mithril.demo.model.Organization;
+
+import java.util.List;
+
+public interface OrganizationDao extends CrudDAO<Organization>{
+
+    List<Organization> organization(Organization organization);
 }

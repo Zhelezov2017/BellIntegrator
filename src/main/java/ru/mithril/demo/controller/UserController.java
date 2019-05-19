@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.exception.com.springboot.CustomErrorType;
 import ru.mithril.demo.service.serviceInterface.UserService;
 import ru.mithril.demo.view.UserView;
-import ru.mithril.demo.view.operations.user.OperationListUser;
+import ru.mithril.demo.view.operations.user.ListUser;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -67,7 +67,7 @@ public class UserController {
 
     @ApiOperation(value = "Получить список всех людей", httpMethod = "GET")
     @GetMapping("/list")
-    public List<UserView> getUsers(@Validated(OperationListUser.class) @RequestBody UserView userView) {
+    public List<UserView> getUsers(@Validated(ListUser.class) @RequestBody UserView userView) {
         return userService.users(userView);
     }
 

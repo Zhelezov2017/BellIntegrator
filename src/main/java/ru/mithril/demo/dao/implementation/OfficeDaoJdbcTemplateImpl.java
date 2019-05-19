@@ -3,6 +3,7 @@ package ru.mithril.demo.dao.implementation;
 
 import ru.mithril.demo.model.user.service.Office;
 import ru.mithril.demo.service.serviceInterface.OfficeService;
+import ru.mithril.demo.view.OfficeView;
 
 import java.util.*;
 
@@ -27,28 +28,28 @@ public class OfficeDaoJdbcTemplateImpl implements OfficeService {
 
 
     @Override
-    public List<Office> offices() {
-        Collection<Office> col = offices.values();
-        List<Office> list = new ArrayList<>();
-        list.addAll(col);
-        return list;
+    public List<OfficeView> offices(OfficeView office) {
+        return null;
     }
 
     @Override
-    public Optional<Office> find(Long id) {
-        return Optional.of(offices.get(id));
+    public boolean isOfficeExist(OfficeView office) {
+        return false;
     }
 
     @Override
-    public Optional<Office> add(Office office) {
-        offices.put(office.getId(), office);
-        return Optional.of(office);
+    public OfficeView find(Long id) {
+        return null;
     }
 
     @Override
-    public Optional<Office> update(Office office) {
-        offices.put(office.getId(), office);
-        return Optional.of(office);
+    public void add(OfficeView office) {
+
+    }
+
+    @Override
+    public void update(OfficeView office) {
+
     }
 
     @Override
