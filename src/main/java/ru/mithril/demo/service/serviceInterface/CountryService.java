@@ -1,9 +1,10 @@
 package ru.mithril.demo.service.serviceInterface;
 
-import ru.mithril.demo.model.Country;
+import org.springframework.validation.annotation.Validated;
+import ru.mithril.demo.view.CountryView;
 
 import java.util.List;
-
+@Validated
 public interface CountryService {
-    List<Country> country();
+    List<CountryView> country(CountryView countryView);
 }

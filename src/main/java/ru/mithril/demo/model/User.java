@@ -46,6 +46,9 @@ public class User {
     @Column(name = "doc_id")
     private Long docId;
 
+    @Column(name = "office_id")
+    private Long officeId;
+
     public User(Long id, String firstName, String secondName, String middleName, String position) {
         this.id = id;
         this.firstName = firstName;

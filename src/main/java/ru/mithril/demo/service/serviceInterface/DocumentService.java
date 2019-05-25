@@ -2,7 +2,7 @@ package ru.mithril.demo.service.serviceInterface;
 
 
 import org.springframework.validation.annotation.Validated;
-import ru.mithril.demo.model.Doc;
+import ru.mithril.demo.view.DocumentView;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ import java.util.List;
 @Validated
 public interface DocumentService {
 
-    List<Doc> doc();
+    List<DocumentView> doc(DocumentView officeView);
 }

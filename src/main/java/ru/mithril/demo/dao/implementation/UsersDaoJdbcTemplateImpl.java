@@ -22,8 +22,8 @@ public class UsersDaoJdbcTemplateImpl implements UserDao {
 
 
 
-    private final EntityManager em;
 
+    private final EntityManager em;
     @Autowired
     public UsersDaoJdbcTemplateImpl(EntityManager em) {
         this.em = em;

@@ -1,8 +1,25 @@
 package ru.mithril.demo.controller;
 
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import ru.mithril.demo.service.serviceInterface.OfficeService;
+import ru.mithril.demo.view.OfficeView;
+import ru.mithril.demo.view.operations.office.ListOffice;
+
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -11,52 +28,57 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/office", produces = APPLICATION_JSON_VALUE)
 public class OfficeController {
 
+    @Autowired
+    private final OfficeService officeService;
+    public static final Logger logger = LoggerFactory.getLogger(OfficeController.class);
+    @RequestMapping("/")
+    @ResponseBody
+    public String welcome(){
+        return "Welcome to RestTemplate Example";
+    }
 
-//    private final OfficeService officeService;
-//
-//    @Autowired
-//    public OfficeController(OfficeService officeService) {
-//        this.officeService = officeService;
-//    }
-//
-//    @ApiOperation(value = "Добавить новый офис", httpMethod = "POST")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Success", response = String.class),
-//            @ApiResponse(code = 404, message = "Not Found"),
-//            @ApiResponse(code = 500, message = "Failure")})
-//    @PostMapping("/officeAdd")
-//    public void addOffice(@RequestBody Office office) {
-//        officeService.add(office);
-//    }
-//
-//    @ApiOperation(value = "Получить список всех офисов", httpMethod = "GET")
-//    @GetMapping("/officeGetAll")
-//    public List<Office> getOffices() {
-//        return officeService.offices();
-//    }
-//
-//    @ApiOperation(value = "Получить офис по id", httpMethod = "GET")
-//    @GetMapping("/officeGetID")
-//    public Optional getOffice() {
-//        return officeService.find(Long.getLong("1"));
-//    }
-//
-//    @PutMapping(value = "{officeID}")
-//    public void updateUser(@RequestBody @Valid Office office,
-//                           @PathVariable("officeID") Long id) throws EntityNotFoundException {
-//        Optional<Office> off = officeService.find(id);
-//        if (!off.isPresent())
-//            throw new EntityNotFoundException("id-" + id);
-//        officeService.update(office);
-//    }
-//
-//    @DeleteMapping(value = "/{offId}")
-//    public void deleteUser(@PathVariable("offId") Long id)
-//            throws EntityNotFoundException {
-//        Optional<Office> p = officeService.find(id);
-//        if (!p.isPresent())
-//            throw new EntityNotFoundException("id-" + id);
-//        officeService.delete(id);
-//    }
+    @Autowired
+    public OfficeController(OfficeService officeService) {
+        this.officeService = officeService;
+    }
+
+    @ApiOperation(value = "Добавить новый офис", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
+    @PostMapping("/save")
+    public ResponseEntity<?> setOffice(@RequestBody @Valid OfficeView office) {
+        logger.info("Creating Office : {}", office);
+
+        officeService.add(office);
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+
+    }
+
+    @ApiOperation(value = "Получить список всех офисов", httpMethod = "GET")
+    @GetMapping("/list")
+    public List<OfficeView> getOffices(@Validated(ListOffice.class) @RequestBody OfficeView officeView) {
+        return officeService.offices(officeView);
+    }
+
+    @ApiOperation(value = "Получить офис по id", httpMethod = "GET")
+    @GetMapping("/{officeID}")
+    public OfficeView getOffice(@PathVariable("officeID") Long id) throws EntityNotFoundException {
+        officeService.find(id);
+        OfficeView office = officeService.find(id);
+        return office;
+    }
+
+
+    @PutMapping(value = "/update",
+            consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+    public ResponseEntity<Object> updateOffice(@RequestBody @Valid OfficeView officeView) throws EntityNotFoundException {
+        officeService.update(officeView);
+        return ResponseEntity.ok().body(officeView);
+    }
 
 }
