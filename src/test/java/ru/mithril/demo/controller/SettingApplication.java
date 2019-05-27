@@ -2,6 +2,7 @@ package ru.mithril.demo.controller;
 
 import com.google.gson.Gson;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 @EnableAutoConfiguration
 public class SettingApplication {
 
+    @Bean
+    public TestRestTemplate testRestTemplate(){return new TestRestTemplate();}
 
     @Bean
     public HttpHeaders httpHeaders() {
